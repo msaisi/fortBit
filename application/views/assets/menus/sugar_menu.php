@@ -1,15 +1,17 @@
-<?php $accessLevel = $this -> session -> userdata('userRights'); ?>
 <li>
-						<a href="#" class="dropdown-toggle">
+						<a href="#" id="prent" class="dropdown-toggle">
 							<i class="icon-edit"></i>
-							<span class="menu-text"> Sugar </span>
+							<span class="menu-text"> <?php echo menuname("Sugar",$this->userVehicle);?> Forms </span>
 
 							<b class="arrow icon-angle-down"></b>
 						</a>
 
-						<ul class="submenu">
-							
+						<!--<ul class="submenu">
+						 <li>
+                 <a id="Market_level_sugar_li" class="sugar-url"><i class="icon-double-angle-right"></i>Market Level Sampling </a>
+             </li>  	
                             <li>
+                          
 				<a id="internalSugar_A1_li" class="sugar-url"><i class="icon-double-angle-right"></i>Internal Fortified Sugar-Table A-1</a>
 			</li>
 			<li>
@@ -54,5 +56,5 @@
 			<li>
 				<a id="qualityAssurance_C1_li" class="sugar-url"><i class="icon-double-angle-right"></i>Quality Assurance-Table C-1</a>
 			</li>
-            </ul>
+            </ul>-->
 	</li>

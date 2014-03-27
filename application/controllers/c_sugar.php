@@ -1,6 +1,14 @@
 <?php
-class C_Sugar extends CI_Controller {
-
+class C_Sugar extends  MY_Controller {
+public $company_list;
+	public function __construct() 
+	{
+        parent::__construct();
+		$this->is_logedIn();
+		$this->load->model("CompanyModel",'c');
+		$filter=array('affiliation' => 'Sugar');
+   	  	$this->company_list=$this->c->get_details($filter);
+    }
 	public function internalSugar_A1() 
 	{
 		$data['form'] = 'sugar/internalSugar_A1';
@@ -106,6 +114,15 @@ class C_Sugar extends CI_Controller {
 		$data['form_id'] = 'qualityAssurance_C1';
 		$this -> load -> view('form', $data);
 	}
+	 public function Market_level_sugar()
+    {
+		$data['sub_title']="add to database";
+        $data['main_title']="FORTIFIED SUGAR MARKET LEVEL FORMS";
+		$data['company_list']=$this->company_list;
+        $data['form'] = 'sugar/market_level_sugar';
+        $data['form_id'] = 'market_level_sugar';
+        $this -> load -> view('form', $data);
+    }
 
 }
 ?>

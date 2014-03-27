@@ -220,4 +220,73 @@ class C_Form_Maize extends MY_Controller{
 		}
 		
 	}//close form_smallScale_A2()
+public function productionMaize($id) 
+	{
+		if ($this -> input -> post()) 
+		{//check if a post was made
+			if($_POST['maizeFactory'])
+			{
+				$_POST['maizeFactory1']=$_POST['maizeFactory'];
+			}
+		}
+		$rec_count=$this->checkDB("maizeFactory1","maize_productiontable");
+			
+		if($rec_count==0)
+		{		
+		$frm_id="productionMaize";
+	    $this -> load -> model('models_maize/M_Maize_Production');
+		$this -> M_Maize_Production -> addRecord($this -> session -> userdata('affiliation'));
+		if($this->M_Maize_Production->response=='ok') 
+		{
+			//notify user of success		
+			if($id==1)	
+			{
+			  $newdata = array('link_id' =>"productionMaize_li");
+			  $this -> session -> set_userdata($newdata);		  
+			   redirect('c_redirect/addEntry');
+			}
+			else
+			{
+				$this->data['form_id'] ="";
+		    	$this->data['form'] = '<p><b>' . $this -> M_Maize_Production -> rowsInserted . '</b> record(s) submitted successfully in approximately <b>' . $this -> M_Maize_Production -> executionTime . '</b> seconds.</p>';
+				$this->load_template_view();
+			}			
+		} 
+		else 
+		{
+	//		//notify user of error/failure
+		}
+	}
+	else
+	{
+		$newdata = array('link_id' =>"productionMaize_li",'update_msg' =>$this->update_e_msg);
+		$this -> session -> set_userdata($newdata);		  
+		redirect('c_redirect/addEntry');
+	}
+	}
+public function fortifiedMaize_market($id) 
+	{	
+	    $this -> load -> model('models_maize/M_Maize_Market');
+		$this -> M_Maize_Market -> addRecord($this -> session -> userdata('affiliation'));
+		if($this->M_Maize_Market->response=='ok') 
+		{
+			//notify user of success		
+			if($id==1)	
+			{
+			  $newdata = array('link_id' =>"Market_level_maize_li");
+			  $this -> session -> set_userdata($newdata);		  
+			   redirect('c_redirect/addEntry');
+			}
+			else
+			{
+				$this->data['form_id'] ="";
+		    	$this->data['form'] = '<p><b>' . $this -> M_Maize_Market -> rowsInserted . '</b> record(s) submitted successfully in approximately <b>' . $this -> M_Maize_Market -> executionTime . '</b> seconds.</p>';
+				$this->load_template_view();
+			}			
+		} 
+		else 
+		{
+	//		//notify user of error/failure
+		}
+	}	
 }

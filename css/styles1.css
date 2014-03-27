@@ -1252,7 +1252,7 @@ input.radio {
 	-o-box-shadow: 0 0.5px 1px 0.6px #000;
 }
 .success {
-	background: green;
+	/*background: green;
 	background-image: linear-gradient(bottom, rgb(71,217,88) 34%, rgb(99,255,117) 67%, rgb(130,255,130) 84%);
 	background-image: -o-linear-gradient(bottom, rgb(71,217,88) 34%, rgb(99,255,117) 67%, rgb(130,255,130) 84%);
 	background-image: -moz-linear-gradient(bottom, rgb(71,217,88) 34%, rgb(99,255,117) 67%, rgb(130,255,130) 84%);
@@ -1265,7 +1265,7 @@ input.radio {
 	color-stop(0.34, rgb(71,217,88)),
 	color-stop(0.67, rgb(99,255,117)),
 	color-stop(0.84, rgb(130,255,130))
-	);
+	);*/
 }
 .message p {
 	font-size: 1em;
@@ -2602,7 +2602,7 @@ label.error {
  *
  * http://docs.jquery.com/UI/Theming/API
  *
- * To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Trebuchet%20MS,%20Tahoma,%20Verdana,%20Arial,%20sans-serif&fwDefault=bold&fsDefault=1.1em&cornerRadius=4px&bgColorHeader=f6a828&bgTextureHeader=12_gloss_wave.png&bgImgOpacityHeader=35&borderColorHeader=e78f08&fcHeader=ffffff&iconColorHeader=ffffff&bgColorContent=eeeeee&bgTextureContent=03_highlight_soft.png&bgImgOpacityContent=100&borderColorContent=dddddd&fcContent=333333&iconColorContent=222222&bgColorDefault=f6f6f6&bgTextureDefault=02_glass.png&bgImgOpacityDefault=100&borderColorDefault=cccccc&fcDefault=1c94c4&iconColorDefault=ef8c08&bgColorHover=fdf5ce&bgTextureHover=02_glass.png&bgImgOpacityHover=100&borderColorHover=fbcb09&fcHover=c77405&iconColorHover=ef8c08&bgColorActive=ffffff&bgTextureActive=02_glass.png&bgImgOpacityActive=65&borderColorActive=fbd850&fcActive=eb8f00&iconColorActive=ef8c08&bgColorHighlight=ffe45c&bgTextureHighlight=03_highlight_soft.png&bgImgOpacityHighlight=75&borderColorHighlight=fed22f&fcHighlight=363636&iconColorHighlight=228ef1&bgColorError=b81900&bgTextureError=08_diagonals_thick.png&bgImgOpacityError=18&borderColorError=cd0a0a&fcError=ffffff&iconColorError=ffd27a&bgColorOverlay=666666&bgTextureOverlay=08_diagonals_thick.png&bgImgOpacityOverlay=20&opacityOverlay=50&bgColorShadow=000000&bgTextureShadow=01_flat.png&bgImgOpacityShadow=10&opacityShadow=20&thicknessShadow=5px&offsetTopShadow=-5px&offsetLeftShadow=-5px&cornerRadiusShadow=5px
+ * To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Trebuchet%20MS,%20Tahoma,%20Verdana,%20Arial,%20sans-serif&fwDefault=bold&fsDefault=1.1em&cornerRadius=4px&bgColorHeader=f6a828&bgTextureHeader=12_gloss_wave.png&bgImgOpacityHeader=35&borderColorHeader=2f96b4&fcHeader=ffffff&iconColorHeader=ffffff&bgColorContent=eeeeee&bgTextureContent=03_highlight_soft.png&bgImgOpacityContent=100&borderColorContent=dddddd&fcContent=333333&iconColorContent=222222&bgColorDefault=f6f6f6&bgTextureDefault=02_glass.png&bgImgOpacityDefault=100&borderColorDefault=cccccc&fcDefault=1c94c4&iconColorDefault=ef8c08&bgColorHover=fdf5ce&bgTextureHover=02_glass.png&bgImgOpacityHover=100&borderColorHover=fbcb09&fcHover=c77405&iconColorHover=ef8c08&bgColorActive=ffffff&bgTextureActive=02_glass.png&bgImgOpacityActive=65&borderColorActive=fbd850&fcActive=eb8f00&iconColorActive=ef8c08&bgColorHighlight=ffe45c&bgTextureHighlight=03_highlight_soft.png&bgImgOpacityHighlight=75&borderColorHighlight=fed22f&fcHighlight=363636&iconColorHighlight=228ef1&bgColorError=b81900&bgTextureError=08_diagonals_thick.png&bgImgOpacityError=18&borderColorError=cd0a0a&fcError=ffffff&iconColorError=ffd27a&bgColorOverlay=666666&bgTextureOverlay=08_diagonals_thick.png&bgImgOpacityOverlay=20&opacityOverlay=50&bgColorShadow=000000&bgTextureShadow=01_flat.png&bgImgOpacityShadow=10&opacityShadow=20&thicknessShadow=5px&offsetTopShadow=-5px&offsetLeftShadow=-5px&cornerRadiusShadow=5px
  */
 /* Component containers
  ----------------------------------*/
@@ -2626,10 +2626,10 @@ label.error {
 	color: #333333;
 }
 .ui-widget-header {
-	border: 1px solid #e78f08;
-	background: #f6a828 url(images/ui-bg_gloss-wave_35_f6a828_500x100.png) 50% 50% repeat-x;
+	border: 1px solid #2f96b4;
+	background: #2f96b4 url(images/ui-bg_gloss-wave_35_f6a828_500x100.png) 50% 50% repeat-x;
 	color: #ffffff;
-	font-weight: bold;
+	font-weight: normal;
 }
 .ui-widget-header a {
 	color: #ffffff;
@@ -2639,8 +2639,9 @@ label.error {
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
 	border: 1px solid #cccccc;
 	background: #f6f6f6 url(images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x;
-	font-weight: bold;
-	color: #1c94c4;
+	/*font-weight: bold;*/
+	/*color: #1c94c4;*/
+	color: #000;
 }
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
 	color: #1c94c4;
@@ -3514,7 +3515,8 @@ label.error {
 .ui-button {
 	display: inline-block;
 	position: relative;
-	padding: 0;
+	padding-left: 3px;
+	padding-right: 3px;
 	margin-right: .1em;
 	text-decoration: none !important;
 	cursor: pointer;
@@ -4007,4 +4009,16 @@ button.ui-button::-moz-focus-inner {
 .tab {
 	border: 1px solid black;
 	height: auto;
+}
+
+.modal-body, .form-horizontal{
+	width:100% !important;
+}
+.modal-body, .form-horizontal, input{
+	/*width:300px !important;*/
+	border-radius: 5px !important;
+}
+.form-section
+{
+	padding-left:70px !important;
 }

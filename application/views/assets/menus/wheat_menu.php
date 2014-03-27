@@ -1,13 +1,17 @@
-<?php $accessLevel = $this -> session -> userdata('userRights'); ?>
  <li>
-						<a href="#" class="dropdown-toggle">
+						<a href="#" id="prent" class="dropdown-toggle">
 							<i class="icon-edit"></i>
-							<span class="menu-text"> Wheat </span>
+							<span class="menu-text"> <?php echo menuname("Wheat",$this->userVehicle);?> Forms  </span>
 
 							<b class="arrow icon-angle-down"></b>
 						</a>
 
 						<ul class="submenu">
+                        <li>
+				<a id="productionWheat_li" class="wheat-url"><i class="icon-double-angle-right"></i>Production Log</a></li> 
+              <!--  <li>
+                 <a id="Market_level_wheat_li" class="wheat-url"><i class="icon-double-angle-right"></i>Market Level Sampling </a>
+             </li>
 						 <li>
 				<a id="internalWheatFlour_A1_li" class="wheat-url"><i class="icon-double-angle-right"></i>Internal Fortified Wheat-Table A-1</a>
 			</li>
@@ -31,6 +35,6 @@
 			</li>
 			<li>
 				<a id="externalWheatFlour_B3_li" class="wheat-url"><i class="icon-double-angle-right"></i>External Fortified Wheat-Table B-3</a>
-			</li>
+			</li>-->
             </ul>
 			</li> 

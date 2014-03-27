@@ -34,7 +34,9 @@
 		<![endif]-->
 
 		<!--inline styles related to this page-->
-        <script src="<?php echo base_url()?>js/js_libraries.js"></script>
+       <!-- <script src="< ?php echo base_url()?>js/js_libraries.js"></script>
+        -->
+<script src="<?php echo base_url(); ?>assets/js/jquery-2.0.3.min.js"></script>
         <script src="http://code.highcharts.com/highcharts.js"></script>
 		<script src="http://code.highcharts.com/modules/exporting.js"></script>
 

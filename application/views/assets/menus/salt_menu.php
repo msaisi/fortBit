@@ -1,14 +1,17 @@
-<?php $accessLevel = $this -> session -> userdata('userRights'); ?>
 <li>
 						<a href="#" id="prent" class="dropdown-toggle">
 							<i class="icon-edit"></i>
-							<span class="menu-text"> Salt </span>
+							<span class="menu-text"> <?php echo menuname("Salt",$this->userVehicle);?> Forms </span>
 
 							<b class="arrow icon-angle-down"></b>
 						</a>
 
 						<ul class="submenu">
-						<?php if($accessLevel==2){?>
+						<?php //if($accessLevel==2|| $accessLevel==0)
+						{?>
+           <!--   <li>
+                 <a id="Market_level_salt_li" class="salt-url"><i class="icon-double-angle-right"></i>Market Level Sampling </a>
+             </li>           
 			<li>
 			<a id="internalFort_A1_li" class="salt-url"><i class="icon-double-angle-right"></i>Fortified Salt-Table A-1</a>
 			</li>
@@ -23,9 +26,12 @@
 			</li>
 			<li>
 			<a id="externalIod_B1_li" class="salt-url"><i class="icon-double-angle-right"></i>Iodized Salt - Audits and Inspection - Table B-1</a>
-			</li>
-			<?php }else if($accessLevel==3 || $accessLevel==4){ ?>
-			<li>
+			</li>-->
+			<?php }
+			//else
+			// if($accessLevel==3 || $accessLevel==4 || $accessLevel==0)
+			{ ?>
+			<!--<li>
 				<a id = "internalFort_A2_li" class="salt-url"><i class="icon-double-angle-right"></i>Fortified Salt QC/QA -Table A-2</a>
 
 			</li>
@@ -43,7 +49,7 @@
 			</li>
 			<li>
 			<a id="smallScale_A2_li" class="salt-url"><i class="icon-double-angle-right"></i>Fortified Salt - QA In Small Scale Operations - Table A-2</a>
-			</li>
+			</li>-->
 			<?php } ?>
             </ul>
 </li>

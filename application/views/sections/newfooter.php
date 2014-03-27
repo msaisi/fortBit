@@ -6,28 +6,28 @@
 <script type="text/javascript">
     if("ontouchend" in document) document.write("<script src='<?php echo base_url(); ?>assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 </script>
-<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/bootstrap.js"></script>
 
 <!--page specific plugin scripts-->
 
 <!--[if lte IE 8]>
-<script src="<?php echo base_url(); ?>assets/js/excanvas.min.js"></script>
+<script src="< ?php echo base_url(); ?>assets/js/excanvas.min.js"></script>
 <![endif]-->
 
 <script src="<?php echo base_url(); ?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/jquery.ui.touch-punch.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/jquery.slimscroll.min.js"></script>
-<!--<script src="<?php //echo base_url(); ?>assets/js/jquery.easy-pie-chart.min.js"></script>
-		<script src="<?php //echo base_url(); ?>assets/js/jquery.sparkline.min.js"></script>
-	<script src="<?php //echo base_url(); ?>assets/js/flot/jquery.flot.min.js"></script>
-		<script src="<?php // echo base_url(); ?>assets/js/flot/jquery.flot.pie.min.js"></script>
-		<script src="<?php // echo base_url(); ?>assets/js/flot/jquery.flot.resize.min.js"></script>-->
+<!--<script src="< ? php //echo base_url(); ?>assets/js/jquery.easy-pie-chart.min.js"></script>
+		<script src="< ? php //echo base_url(); ?>assets/js/jquery.sparkline.min.js"></script>
+	<script src="< ? php //echo base_url(); ?>assets/js/flot/jquery.flot.min.js"></script>
+		<script src="< ? php // echo base_url(); ?>assets/js/flot/jquery.flot.pie.min.js"></script>
+		<script src="< ? php // echo base_url(); ?>assets/js/flot/jquery.flot.resize.min.js"></script>-->
 
 <!--ace scripts-->
 
 <script src="<?php echo base_url(); ?>assets/js/ace-elements.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/ace.min.js"></script>
-
+<script type="text/javascript" src="<?php echo base_url()?>js/highcharts.js"></script>
 <!--inline scripts related to this page-->
 
 <script type="text/javascript">

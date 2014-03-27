@@ -1,33 +1,65 @@
 <!-- This is the template page. It is the root view in which all other mini views are loaded.-->
 <?php
+$is_logged_in=$this -> session -> userdata('logged_in');
+if(empty($is_logged_in))
+{
+	redirect('c_front/access_site');
+}
 ob_start();
 $sessionEmail = $this -> session -> userdata('email');
 $accessLevel = $this -> session -> userdata('userRights');
-$category = $this -> session -> userdata('category');
+$vehicle = $this -> session -> userdata('vehicle');
 $affiliation = $this -> session -> userdata('affiliation');
+$logged_user_id=$this -> session -> userdata('userID');
+$this->userVehicle=$vehicle;
+$this->my_vehicles=$this -> session -> userdata('my_vehicles');
+//die();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 		<?php $this -> load -> view('sections/newheader'); ?>
         <!--class="skin-1"-->
-	<body>
+        
+<script type="text/javascript">
+function changeAccPass()
+{
+url='<?php echo  $logged_user_id?>';
+$( "#cont_div1" ).load( "<?php echo site_url()?>Users/change_pass/"+url );
+$( "#myModalLabel1" ).html("Change account password");
+$( "#add_b1" ).click();
+}
+</script>
+<body>
+<a href="#chngepass" role="button" class="btn btn-info" data-toggle="modal" id="add_b1" style="display:none"></a>
+     
+<div id="chngepass" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel1">Change account password</h3>
+  </div>
+  <div class="modal-body" id="cont_div1" style="padding: 5px;">
+  </div>
+</div>
+   
 <div class="navbar">
 			<div class="navbar-inner">
 				<div class="container-fluid">
-					<a href="<?php echo base_url()?>" class="brand" style="padding:0px">
-					<small>
+					<a href="<?php echo base_url()?>" class="brand" style="padding:0px; width: 50%">
+                    
+					<div>
                     <span style="display:block; float:left">
-                    <img src="<?php echo base_url(); ?>images/coat_of_arms-resized.png" style="width:60px; height:50px; padding-right:5px" /></span>
-					<span style="display:block;float:left; background:transparent; border:none; font-weight:bold; padding-top:4px" class="red">Ministry Of Public Health and Sanitation</span>
-                    <span style="display:block; background:transparent; border:none; font-weight:bold; font-size:small" class="white">Department of Family Health</span>
-					</small>
+                    <img src="<?php echo base_url(); ?>images/coat_of_arms-resized.png" style="width:65px; height:55px; padding-right:5px" /></span>
+					<span style="display:block; background:transparent; border:none; font-weight:bold; padding-top:3px;font-size: 16px;" class="red">Ministry Of Health</span>
+                    <span style="display:block; background:transparent; border:none; font-weight:bold; font-size:medium;font-size: 14px;" class="white">Department of Preventive and Productive Health Services</span>
+                     <span  class="blue" style="display:block; background:transparent; border:none; font-weight:bold; font-size:small;font-size: 13px;">Division of Family Health, Nutrition &amp; Dietetics Unit</span>
+					</div>
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
-						<li class="grey"></li>
-						<li class="green"></li>
+						<!--<li class="grey"></li>
+						<li class="green"></li>-->
 
-						<li class="light-blue">
+						<li class="grey">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 								<img class="nav-user-photo" src="<?php echo base_url()?>assets/avatars/avatar2.png"/>
 								<span class="user-info">
@@ -52,6 +84,31 @@ $affiliation = $this -> session -> userdata('affiliation');
 										Profile
 									</a>
 								</li>
+                              <?php  
+                               if(count($this->my_vehicles)>1)
+								{?>
+                                 <li>
+									<a href="<?php echo base_url()?>c_front/chooseVehicle">
+										<i class="icon-exchange "></i>
+										Switch Vehicle
+									</a>
+								</li>
+                              <?php
+								}
+            					?>                    
+                                <?php //if($sessionEmail!="admin")
+		{?> 
+                                <li>
+									<a href="javascript:changeAccPass()">
+										<i class="icon-user"></i>
+										Change Password
+									</a>
+								</li>
+                                
+                                
+               <?php }?>                 
+                                
+                                
 
 								<li class="divider"></li>
 
@@ -71,8 +128,7 @@ $affiliation = $this -> session -> userdata('affiliation');
 			<a class="menu-toggler" id="menu-toggler" href="#">
 				<span class="menu-text"></span>
 			</a>
-            <?php  
-			$this -> load -> view('sections/sidebar'); ?>
+            <?php $this -> load -> view('sections/sidebar'); ?>
 			<div class="main-content">
         	<div class="breadcrumbs" id="breadcrumbs">
 					<ul class="breadcrumb">
@@ -84,7 +140,7 @@ $affiliation = $this -> session -> userdata('affiliation');
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">Dashboard</li>
+						<li class="active">Current Vehicle: <?php echo $this->userVehicle?></li>
 					</ul><!--.breadcrumb-->
 
 					<div class="nav-search" id="nav-search">
@@ -98,22 +154,74 @@ $affiliation = $this -> session -> userdata('affiliation');
 				</div>
                <div class="page-content"> 
                               
-					<div class="page-header position-relative">
+					<div class="page-header position-relative" id="main_title">
 						<h1>
-							Dashboard
+							  <?php if($mh_title)
+								{
+									echo $mh_title;
+								}
+								else
+								{?>
+								Dashboard
+                                <?php 
+								}?>
 							<small>
 								<i class="icon-double-angle-right"></i>
+                                <?php if($h_title)
+								{
+									echo $h_title;
+								}
+								else
+								{?>
 								overview &amp; stats
+                                <?php 
+								}?>
 							</small>
 						</h1>
 					</div><!--/.page-header-->
                <div class="row-fluid">
 <div class="span12">
-<!--PAGE CONTENT BEGINS-->				
-<?php  if($this->data['form'])
+<!--PAGE CONTENT BEGINS-->	
+			
+<?php
+if($this->data['return_page']&& $this->data['return_page']==1)
+{
+	 $lnk="#".$this -> session -> userdata('link_id');	
+	 $msg=$this -> session -> userdata('update_msg');
+	//die();
+?>
+<script type="text/javascript">	
+	$(function(){
+		$("<?php echo $lnk ?>").click();
+		update_e_msg="<?php echo $msg;?>";
+		//alert(update_e_msg);
+		if(update_e_msg)
+		{
+		//	alert(update_e_msg);
+			$( "#cont_div1" ).html(update_e_msg);
+		    $( "#myModalLabel1" ).html("Duplicate Record error!!!");
+		    $( "#add_b1" ).click();
+			<?php $this->session->unset_userdata('update_msg');?>
+		}
+	});
+</script>
+<?php
+}
+else if($this->data['form'])
 {
 	echo $this->data['form'];
-}?>
+}
+else if($content_page)
+{
+	if($content_page =="chart"){
+		$this -> load -> view('sections/chart',$chart_data);
+	}else{
+		$this -> load -> view('dashboard/'.$content_page);
+		$this -> load -> view('dashboard/load_scripts');
+	}
+	
+}
+?>
 
 <!--PAGE CONTENT ENDS-->
 </div><!--/.span-->
@@ -147,5 +255,9 @@ $affiliation = $this -> session -> userdata('affiliation');
 	<!--
 	End of Body
 	-->
-    <?php $this -> load -> view('sections/newfooter'); ?>
+    <?php $this -> load -> view('sections/newfooter'); 
+if($content_page) {
+	$this -> load -> view('dashboard/load_scripts');
+	}?>
+
 </html>

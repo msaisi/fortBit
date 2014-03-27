@@ -1,9 +1,15 @@
 <?php
 class C_salt extends MY_Controller {
-
-	public function __construct() {
-		parent::__construct();
-	}
+public $company_list;
+	public function __construct() 
+	{
+        parent::__construct();
+		$this->is_logedIn();
+		
+		$this->load->model("CompanyModel",'c');
+		$filter=array('affiliation' => 'Salt');
+   	  	$this->company_list=$this->c->get_details($filter);
+    }
 
 	public function internalFort_A1() 
 	{
@@ -63,6 +69,7 @@ class C_salt extends MY_Controller {
 		}
 		return $this -> selectIodizationCentre;
 	}
+	
 
 	public function externalFort_B1() 
 	{
@@ -105,4 +112,13 @@ class C_salt extends MY_Controller {
 		$data['form_id'] = 'smallScale_A2';
 		$this -> load -> view('form', $data);
 	}
+	public function Market_level_salt()
+    {
+		$data['sub_title']="add to database";
+        $data['main_title']="FORTIFIED SALT MARKET LEVEL FORMS";
+		$data['company_list']=$this->company_list;
+        $data['form'] = 'salt/market_level_salt';
+        $data['form_id'] = 'market_level_salt';
+        $this -> load -> view('form', $data);
+    }
 }

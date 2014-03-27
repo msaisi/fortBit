@@ -40,6 +40,17 @@
 
 $route['default_controller'] = "c_front";
 $route['404_override'] = '';
+$route['manageCompanies'] = "company/manageCompanies";
+$route['manageUsers'] = "Users/manageUsers";
+$route['editCompany/(:any)'] = "company/add_form/$1";
+$route['openComany/(:any)'] = "company/openComany/$1";
+$route['activate/(:any)'] = "c_front/activate/$1";
+$route['prodOil'] = "c_oil/oilData";
+$route['prodMaize'] = "c_maize/maizeData";
+$route['prodWheat'] = "c_wheat/wheatData";
+
+//$route['loadTemplate'] = "/prodOil";
+
 //$route['submit/c_form_salt/([a-z]+)']='c_front/vehicles';
 
 

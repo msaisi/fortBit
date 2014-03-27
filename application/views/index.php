@@ -13,13 +13,41 @@
         <h1>
             <!--<i class="icon-leaf green"></i>-->
             <img src="<?php echo base_url(); ?>images/coat_of_arms-resized.png" style="width:100px; height:100px;" />
-            <span style="display: block;" class="red ">Ministry Of Public Health and Sanitation</span>
-            <span class="white">Department of Family Health</span>
+            <span style="display: block;" class="red ">Ministry Of  Health</span>
+            <span class="white">Department of Preventive and Productive Health Services</span>
         </h1>
-        <h4 class="blue">Division of Nutrition</h4>
+        <h4 class="blue">Division of Family Health, Nutrition &amp; Dietetics Unit</h4>
     </div>
 </div>
 
+<script src="<?php echo base_url();?>assets/js/jquery.validate.js"></script>
+<script>
+$(document).ready(function () {
+
+$('#form_password').validate({
+  rules: {
+
+
+        new_pass: {
+                        required: true,
+                        minlength: 5
+        },
+        confirm_pass: {
+                        required: true,
+                        minlength: 5,
+                        equalTo: "#password"
+        }
+    },
+    highlight: function (element) {
+        $(element).closest('.control-group').removeClass('success').addClass('error');
+    },
+    success: function (element) {
+        element.text('OK!').addClass('valid')
+            .closest('.control-group').removeClass('error').addClass('success');
+    }
+});
+});
+</script>
 <div class="space-6"></div>
 
 <div class="row-fluid">
@@ -27,29 +55,68 @@
         <div id="login-box" class="login-box visible widget-box no-border">
             <div class="widget-body">
                 <div class="widget-main">
-                    <h4 class="header blue lighter bigger">
-                        <i class="icon-coffee green"></i>
-                        Please Enter Your Information
-                    </h4>
+                    
                     <?php if(!empty($form)){?>
                     <div class="alert alert-error"><?php echo $form;?></div>
                     <?php } ?>
                     <div class="space-6"></div>
+					<?php if($pass){ ?>
+						<h4 class="header blue lighter bigger">
+                        <i class="icon-coffee green"></i>
+                        Change your password
+						</h4>
+						<form method="post" id="form_password" autocomplete="off" action="<?php echo site_url();?>c_auth/changepass">
+                        <fieldset>
+                            <label>
+										<span class="block input-icon input-icon-right">
+											<input type="password" id="password" name="new_pass"class="span12" placeholder="new passsword" />
+											
+										</span>
+                            </label>
+							<input type="hidden" value="<?php echo $code;?>" name="code">
+                            <label>
+										<span class="block input-icon input-icon-right">
+											<input type="password" id="confirm_pass" name="confirm_pass" class="span12" placeholder="confirm password" />
+											
+										</span>
+                            </label>
 
+                            <div class="space"></div>
+
+                            <div class="clearfix">
+
+								<div class="form-actions">
+									<button type="submit" 
+											class="width-35 pull-right btn btn-small btn-primary">
+										<i class="icon-key"></i>
+										Submit
+									</button>
+								</div>
+                            </div>
+
+                            <div class="space-4"></div>
+                        </fieldset>
+                    </form>
+					
+					<?php }else{?>
+					<h4 class="header blue lighter bigger">
+                        <i class="icon-coffee green"></i>
+                        Please Enter Your Information
+                    </h4>
                     <form method="post">
                         <fieldset>
                             <label>
-															<span class="block input-icon input-icon-right">
-																<input type="text" name="username"class="span12" placeholder="Username" />
-																<i class="icon-user"></i>
-															</span>
+									<span class="block input-icon input-icon-right">
+										<input type="text" name="username"class="span12" placeholder="Username" />
+										<i class="icon-user"></i>
+									</span>
                             </label>
 
-                            <label>
-															<span class="block input-icon input-icon-right">
-																<input type="password" name="secret" class="span12" placeholder="Password" />
-																<i class="icon-lock"></i>
-															</span>
+					<label>
+								<span class="block input-icon input-icon-right">
+									<input type="password" name="secret" class="span12" placeholder="Password" />
+									<i class="icon-lock"></i>
+								</span>
                             </label>
 
                             <div class="space"></div>
@@ -67,7 +134,7 @@
                             <div class="space-4"></div>
                         </fieldset>
                     </form>
-
+					<?php } ?>
                   
                 </div><!--/widget-main-->
 
@@ -102,20 +169,21 @@
                         Enter your email and to receive instructions
                     </p>
 
-                    <form>
+                    <form method="post" action="<?php echo site_url()?>c_auth/password">
                         <fieldset>
                             <label>
 															<span class="block input-icon input-icon-right">
-																<input type="email" class="span12" placeholder="Email" />
+																<input type="email"  name="email" class="span12" 
+																placeholder="Email" />
 																<i class="icon-envelope"></i>
 															</span>
                             </label>
 
                             <div class="clearfix">
-                                <button onclick="return false;" class="width-35 pull-right btn btn-small btn-danger">
-                                    <i class="icon-lightbulb"></i>
+                                <button type="submit" class="width-35 pull-right btn btn-small btn-danger">
+                                    <i class="icon-"></i>
                                     Send Me!
-                                </button>
+                                </button>lightbulb
                             </div>
                         </fieldset>
                     </form>

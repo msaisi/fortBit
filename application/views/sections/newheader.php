@@ -34,9 +34,9 @@
 <![endif]-->
 <!--basic scripts-->
 
-<!--[if !IE]>-->
+<!--[if !IE]>
 
-<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <!--<![endif]-->
 
@@ -44,9 +44,9 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <![endif]-->
 
-<!--[if !IE]>
+<!--[if !IE]>-->
 
-<!--<script type="text/javascript">
+<script type="text/javascript">
     window.jQuery || document.write("<script src='<?php echo base_url(); ?>assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
 </script>
 
@@ -56,24 +56,116 @@
 <script type="text/javascript">
     window.jQuery || document.write("<script src='<?php echo base_url(); ?>assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
 </script>
-<![endif]-->
+<!--[endif]-->
 
 <!--inline styles related to this page-->
 <!--<script src="<?php //echo base_url()?>js/js_libraries.js"></script>-->
 <!--<script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>-->
 
-<script src="<?php echo base_url();?>/js/js_libraries.js">
-    <script src="<?php echo base_url();?>/js/js_ajax_load.js">
-
+<!--<script src="< ? php echo base_url();?>/js/js_libraries.js"></script>
+-->
+<script src="<?php echo base_url(); ?>assets/js/jquery-2.0.3.min.js"></script>
+<script src="<?php echo base_url();?>assets/js/jquery.validate.js"></script>
+<script src="<?php echo base_url();?>js/ui/jquery-ui.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>js/jquery.dataTables.js"></script>
+<!--<script src="< ? php echo base_url();?>assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+-->
+<!--<script src="< ?php echo base_url();?>/js/js_ajax_load.js"></script>
+-->
+<script src="<?php echo base_url();?>/js/js_ajax_load.js"></script>
 <!--script to form client side validation functions-->
 <!-- Run the TAB plugin -->
 <script type="text/javascript">
     // Place all Javascript code here
 
-    $(document).ready(function() {
+//================================================================my custom function====================
+var oTable=null;
+function fnFilterGlobal(fld)
+{
+	user=$("#vehicleFactory").val();
+	oTable.fnClearTable(0);
+	oTable.fnReloadAjax('<?php echo base_url(); ?>c_'+fld+'/get'+fld+'Data/'+user);
+}
+function fnFilterColumn (fld,i)
+{
+	$('#big_table').dataTable().fnFilter( 
+		$("#"+fld).val(),i,true,true);
+}
+function checkFields(cont,ele,cb,index)
+{
+  var cnt = $('#'+cont+' :checkbox:checked').length > 0;
+  elem_id=cb.id;
+  checked=cb.checked;
+  if(ele+"[0]"===elem_id)
+  {
+	 if(checked==true)
+	 {
+		 $('#'+cont+' input[type="checkbox"]').prop('checked', false);
+		 $('#'+cont+' input[type="checkbox"]').first().prop('checked', true);
+	 }
+	 else
+	 {
+	 $('#'+cont+' input[type="checkbox"]').first().prop('checked', true); 
+	 }
+  }
+  else
+  {
+	if(cnt==false)
+	{
+		$('#'+cont+' input[type="checkbox"]').first().prop('checked', true);
+	}
+	else
+	{
+		$('#'+cont+' input[type="checkbox"]').first().prop('checked', false);
+		if(ele==="brandname2")
+		{
+			 e_item="brandname["+index+"]";
+			//  alert('#'+e_item);
+			 document.getElementById(e_item).checked=false;
+			 $('#'+e_item).prop('checked', false); 
+			 $('#checkArray :checkbox:checked').length > 0;
+			
+			 cnt = $('#checkArray :checkbox:checked').length > 0;
+			// alert(e_item);
+			 if(cnt==false)
+				{
+				   $('#checkArray input[type="checkbox"]').first().prop('checked', true);
+				}
+		}
+		else
+		{
+			 e_item="brandname2["+index+"]";
+			//  alert('#'+e_item);
+			 document.getElementById(e_item).checked=false;
+			 $('#'+e_item).prop('checked', false);
+			 
+			 cnt = $('#checkArray2 :checkbox:checked').length > 0;
+			// alert(e_item);
+			 if(cnt==false)
+				{
+				   $('#checkArray2 input[type="checkbox"]').first().prop('checked', true);
+				}
+		}
+		
+	}
+  }
+  ctrl = document.getElementById('brandname[0]').checked;
+  ctrl1 =document.getElementById('brandname2[0]').checked;
+  if(ctrl1==true && ctrl==true)
+  {
+  document.getElementById('alMsg').style.display="block";
+  }
+  else
+  {
+	document.getElementById('alMsg').style.display="none";
+  }
+ }
+ //========================================================================================================
+    $(document).ready(function() {		
+		
         $('.received.title').click(function(){
-            alert('Clicked Received');
+        //    alert('Clicked Received');
             $('.tab.received').show();
             $('.tab.dispatched').hide();
 
@@ -118,6 +210,9 @@
 </script>
 <script>
 $().ready(function(){
+	$("#ace-settings-btn").hide();
+	$("#ace-settings-box").hide();
+				
     /**
      * variables
      */
@@ -128,7 +223,6 @@ $().ready(function(){
     var linkDomain='';
     var visit_site = '';
     var devices='';
-
 
     /*----------------------------------------------------------------------------------------------------------------*/
 
@@ -155,8 +249,15 @@ $().ready(function(){
         $(".row-fluid").load('<?php echo base_url().'c_front/formviewer';?>',function(){
             //delegate events
 			loadGlobalScript();
-			$("#ace-settings-box").removeClass('ace-settings-box open').addClass("ace-settings-box");
-				$("#ace-settings-btn").removeClass('btn btn-app btn-mini btn-warning ace-settings-btn open').addClass("btn btn-app btn-mini btn-warning ace-settings-btn");
+			
+		/*	$("#ace-settings-box").removeClass('ace-settings-box open').addClass("ace-settings-box");			
+			$("#ace-settings-btn").removeClass('btn btn-app btn-mini btn-warning ace-settings-btn open').addClass("btn btn-app btn-mini btn-warning ace-settings-btn");*/
+			$("#ace-settings-box").removeClass('ace-settings-box open').addClass("ace-settings-box");			
+			$("#ace-settings-btn").removeClass('btn btn-app btn-mini btn-warning ace-settings-btn open').addClass("btn btn-app btn-mini btn-warning ace-settings-btn");
+			$("#ace-settings-box").hide("slow");
+			$("#ace-settings-btn").hide("slow");
+			
+			
         });
     });/*end of close_opened_form click event
 
@@ -270,6 +371,7 @@ $().ready(function(){
     /*----------------------------------------------------------------------------------------------------------------*/
     var loaded=false;
     function loadGlobalScript(){
+	//	alert("here");
         loaded=true;
         var scripts=['<?php echo base_url().'js/js_ajax_load.js';?>'];
         for(i=0;i<scripts.length;i++){
@@ -307,16 +409,25 @@ $().ready(function(){
             case "sugar-url":
                 linkDomain='c_sugar';
                 break;
-        }		
-        //alert('< ?php echo base_url();?>'+linkDomain+'/'+linkIdUrl);
-        if(linkDomain)
-
+        }
+		if(linkDomain)
+					
+      //  alert('< ?php echo base_url();?>'+linkDomain+'/'+linkIdUrl);
             $(".row-fluid").load('<?php echo base_url();?>'+linkDomain+'/'+linkIdUrl,function(){
                 //delegate events
                 //if(loaded==false)
                 loadGlobalScript();//getRecordsByForm();
 				$("#ace-settings-box").removeClass('ace-settings-box').addClass("ace-settings-box open");
 				$("#ace-settings-btn").removeClass('btn btn-app btn-mini btn-warning ace-settings-btn').addClass("btn btn-app btn-mini btn-warning ace-settings-btn open");
+				$("#ace-settings-btn").show();
+			    $("#ace-settings-box").show("slow");
+				
+			//	if(update_e_msg)
+			//	{
+				
+			//	}
+				
+				
 				//$("#displayPanel div").removeClass('someClass');
 				//alert("dfgdfg");
 
@@ -404,9 +515,51 @@ $().ready(function(){
         return false;
     }
     /*end of ajax data requests*/
+	$.fn.dataTableExt.oApi.fnReloadAjax = function ( oSettings, sNewSource, fnCallback, bStandingRedraw )
+{
+    if ( typeof sNewSource != 'undefined' && sNewSource != null )
+    {
+        oSettings.sAjaxSource = sNewSource;
+    }
+    this.oApi._fnProcessingDisplay( oSettings, true );
+    var that = this;
+    var iStart = oSettings._iDisplayStart;
+     
+    oSettings.fnServerData( oSettings.sAjaxSource, [], function(json) {
+        /* Clear the old information from the table */
+        that.oApi._fnClearTable( oSettings );
+         
+        /* Got the data - add it to the table */
+        var aData =  (oSettings.sAjaxDataProp !== "") ?
+            that.oApi._fnGetObjectDataFn( oSettings.sAjaxDataProp )( json ) : json;
+         
+        for ( var i=0 ; i<aData.length ; i++ )
+        {
+            that.oApi._fnAddData( oSettings, aData[i] );
+        }
+         
+        oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+        that.fnDraw();
+         
+        if ( typeof bStandingRedraw != 'undefined' && bStandingRedraw === true )
+        {
+            oSettings._iDisplayStart = iStart;
+            that.fnDraw( false );
+        }
+         
+        that.oApi._fnProcessingDisplay( oSettings, false );
+         
+        /* Callback user function - for event handlers etc */
+        if ( typeof fnCallback == 'function' && fnCallback != null )
+        {
+            fnCallback( oSettings );
+        }
+    }, oSettings );
+}
     /*-----------------------------------------------------------------------------------------------------------------*/
 
 }); /*close document ready*/
+
 </script>
 
 </head>

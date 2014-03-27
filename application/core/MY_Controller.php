@@ -4,8 +4,7 @@ error_reporting(0);
 class  MY_Controller  extends  CI_Controller  {
 
 public $em, $response, $theForm, $rowsInserted, $executionTime,$data,
-      $selectCompManufacturers,$selectPremixType, $selectIodizationCentre,$selectFactoryByManufacturer,$manufacturer,
-      $factories;
+      $selectCompManufacturers,$selectPremixType, $selectIodizationCentre,$selectFactoryByManufacturer,$manufacturer,$factories,$update_e_msg,$userVehicle,$delete_er_msg,$delete_success_msg,$my_vehicles;
 
 function __construct()  {
 		parent::__construct();
@@ -17,6 +16,7 @@ function __construct()  {
 		$this->response='';
 		$this->theForm='';
 		$this->data='';
+		
 		$this->selectCompManufacturers='';
 		$this->selectPremixType='';
 		$this->selectIodizationCentre='';
@@ -25,6 +25,12 @@ function __construct()  {
 		$this->getPremixTypesAndIds();
 		$this->getIodizationCentreNames();
 		$this->getFactoriesByVehicle();
+		$this->load->Model("brandmodel","brand");
+		$this->load->Model("productionitem","p");	
+		$this->update_e_msg=$this->config->item('update_e_msg');
+		$this->delete_er_msg=$this->config->item('delete_er_msg');
+		$this->delete_success_msg=$this->config->item('delete_success_msg');
+		
 	}
 
 	function  getRepositoryByFormName($form){
@@ -86,5 +92,70 @@ function __construct()  {
 			$this->data['title']='Vehicles';			
 			$this -> load -> view('template_loggedin', $this->data);
    }
+   public function is_logedIn()
+	{
+		$is_logged_in=$this -> session -> userdata('logged_in');
+		if(empty($is_logged_in))
+		{
+			redirect('c_front/access_site');
+		}
+	}
+	
+	public function radio_boxes()
+	{
+		
+		$brand = $this->brand->get_details(array('company.company_id'=>$this->session->userdata('companyID')));
+		if(count($brand)>0)
+		{
+			return $brand;
+		}else{
+			return $brand;
+		}		
+	}
+/***Charts  section***/
+    function line_chart($series, $series_name,$title){
+        $serie['data'] = $series;
+       // $data['charts'] = $this->highcharts->set_serie($serie)->render();
+        return $chart = $this->highcharts->set_serie($serie,$series_name)->set_title($title)->render();
+       // $this->load->view('charts/charts', $data);
+    }
+	/**
+	 * pie function.
+	 * Draw a Pie, and run javascript callback functions
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	function chart($series,$series_name,$title,$type,$y_axis,$x_axis)
+	{
+		
+		$callback = "function() { return '<b>'+ this.point.name +'</b>: '+ this.y +' %'}";
+		
+		$tool->formatter = $callback;
+		$plot->pie->dataLabels->formatter = $callback;
+		
+		$this->highcharts
+			->set_type($type)
+			->set_serie($series,$series_name)
+			->set_axis_titles($x_axis, $y_axis)
+			->set_title($title)
+			->set_tooltip($tool)
+			->set_plotOptions($plot);
+		
+		$charts = $this->highcharts->render();
+		return $charts;
+		//$this->load->view('charts/charts', $data);
+	}
+	function checkDB($fld,$tbl)
+	{
+		if ($this -> input -> post()) 
+		{//check if a post was made
+			$comp_id=$_POST[$fld];
+			$month=$_POST['prodMonth_1'];
+			$year=$_POST['harvestYear'];
+			$filter=array('company_id' => $comp_id,'prod_month' =>$month,'year' => $year);
+			return $this->p->get_count($filter,$tbl);
+		}
+	}
 
 }  
